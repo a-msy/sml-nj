@@ -1,0 +1,9 @@
+fun listdel (nil,i) = nil
+|   listdel (a::bs, 1) = bs
+|   listdel (a::bs, i) = a::listdel(bs,i-1)
+;
+
+listdel([1,2,3,4,5,6],3);
+listdel([1],1);
+listdel([1,2,3,4,5,6],99);
+listdel([1],99);

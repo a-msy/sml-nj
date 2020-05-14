@@ -1,0 +1,7 @@
+fun round(a:real,d)=
+((trunc a) +5) div d * d
+;
+round(114.512, 10);
+round(31.433, 10);
+round(95.1, 10);
+round(5.3222, 10);

@@ -1,0 +1,7 @@
+fun mygcd(a, 0)= a
+|
+    mygcd(a, b)= mygcd(b, a mod b)
+;
+
+mygcd(35, 45);
+mygcd(11, 3);

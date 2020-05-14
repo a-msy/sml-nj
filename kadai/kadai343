@@ -1,0 +1,11 @@
+fun inserteach(_,nil) = nil
+| inserteach(a,x::xs) = (a::x)::inserteach(a,xs);
+
+fun PowerSet(nil) = [nil]
+| PowerSet(x::xs) =
+        let
+            val s = PowerSet(xs)
+        in
+            s@inserteach(x,s)
+        end
+;

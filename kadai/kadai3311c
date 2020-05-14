@@ -1,0 +1,13 @@
+fun insert(x,S)=
+let
+    fun check(x, a::bs)=
+        if x=a then S
+        else check(x, bs)
+    |   check(x,nil) = x::S
+in
+    check(x, S)
+end;
+
+insert(3,[]);
+insert(2,[1,5,9,0]);
+insert(4,[1,2,3,4,5]);

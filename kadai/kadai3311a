@@ -1,0 +1,13 @@
+fun member(x, S) =
+let
+    fun check(x, a::bs) = 
+        if x=a then true 
+        else check(x,bs)
+        | check(x,[]) = false
+in
+    check(x, S)
+end;
+
+member(3,[1,2,3,4,5,6]);
+member(4,[3,4,1,2,5,6]);
+member(99,[1,2,3,4,5,6,7]);

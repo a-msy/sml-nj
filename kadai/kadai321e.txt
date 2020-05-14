@@ -1,0 +1,8 @@
+fun exponents(x:real,i)=
+if i = 0 then 1.0
+else x * exponents(x,i-1);
+
+exponents(1.7,3);
+exponents(5.0,3);
+exponents(10.0,0);
+exponents(7.3,1);

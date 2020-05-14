@@ -1,0 +1,10 @@
+fun cyclelist (L) = 
+if L = nil then nil
+else tl(L)@[hd(L)]
+;
+
+fun multicycle (i,L) = 
+if i=1 then cyclelist(L)
+else multicycle(i-1,cyclelist(L))
+;
+multicycle (3,[1,2,3,4,5]);

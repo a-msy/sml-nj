@@ -1,0 +1,23 @@
+exception Error;
+fun listmax([]) = raise Error
+|   listmax([n:real]) = n
+|   listmax(L) =
+        let
+            fun max(x, y) = if x>y then x
+                            else y
+        in
+            max(hd(L),listmax(tl(L)))
+        end;
+
+fun listmaxk(x::nil) = x:real
+|   listmaxk(x::xs) =
+    let
+        val m = listmaxk(xs)
+    in
+        if x > m then x
+        else m
+    end
+;
+
+listmax([1.1, 2.2, 3.3, 6.6, 5.5, 4.4]);
+listmax([]);

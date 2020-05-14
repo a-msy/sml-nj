@@ -1,0 +1,6 @@
+fun cyclelist (L) =
+if L = nil then nil
+else tl(L)@[hd(L)];
+
+cyclelist(explode "abced");
+cyclelist([1,2,3,4,5]);

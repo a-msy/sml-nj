@@ -1,0 +1,9 @@
+fun swap(a::nil)  = [a]
+|   swap(a::b::cs) = b::a::swap(cs)
+|   swap(nil) = nil
+;
+
+swap([1,2,3,4,5,6,7]);
+swap([1,2,3,4,5]);
+swap([1,2]);
+swap([1]);

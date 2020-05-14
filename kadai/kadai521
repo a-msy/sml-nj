@@ -1,0 +1,10 @@
+exception Tarinai;
+fun dai3([]) = raise Tarinai
+|   dai3(L) = if List.length(L) > 3 then hd(tl(tl(L))) else raise Tarinai;
+exception TooShort;
+fun thirdelement(x::y::z::zs) = z
+| thirdelement(_) = raise TooShort;
+
+dai3([1,2,3,4,5]);
+dai3([1]);
+dai3([]);

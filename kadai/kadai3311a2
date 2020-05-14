@@ -1,0 +1,6 @@
+fun member(x, []) = false
+|   member(x,y::ys) = if x=y then true else member(x,ys);
+
+member(3,[1,2,3,4,5,6]);
+member(4,[3,4,1,2,5,6]);
+member(99,[1,2,3,4,5,6,7]);

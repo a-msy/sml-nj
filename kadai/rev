@@ -1,0 +1,9 @@
+fun rev(L) =
+let
+    fun rev1 (M,[]) = M
+    |   rev1 (M,x::xs) = rev1(x::M,xs)
+in
+    rev1([],L)
+end;
+
+rev([1,2,3]);

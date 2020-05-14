@@ -1,0 +1,10 @@
+fun listmax([n:int]) = n
+    | listmax(L) =
+        let
+            fun max(x, y) = if x>y then x
+                            else y
+        in
+            max(hd(L),listmax(tl(L)))
+        end;
+listmax([1,7,3,5,2,9,5]);
+listmax([]);

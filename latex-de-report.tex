@@ -1,0 +1,54 @@
+\documentclass{article}
+\begin{document}
+
+\title{非手続き型言語x回目課題}
+\author{学生番号 氏名}
+\maketitle
+
+\section{演習問題3.1.1 a) -- d)}
+
+\begin{verbatim}
+(* 3.1.1 *)
+
+(* a *)
+fun cube (x:real) = x * x * x;
+
+(* b *)
+fun min3 (a, b, c) =
+if a < b then
+  if a < c then a
+  else c
+else if b < c then b
+else c;
+
+(* c *)
+fun thirdelement (L) = hd(tl(tl(L)));
+
+(* d *)
+fun reverse3tuple (a,b,c) = (c,b,a);
+
+\end{verbatim}
+
+\section{実行結果}
+
+\begin{verbatim}
+- use "ex3.1.ml";
+[opening ex3.1.ml]
+val cube = fn : real -> real
+val min3 = fn : int * int * int -> int
+val thirdelement = fn : 'a list -> 'a
+val reverse3tuple = fn : 'a * 'b * 'c -> 'c * 'b * 'a
+val it = () : unit
+- cube (4.0);
+val it = 64.0 : real
+- min3 (10, ~1, 5);
+val it = ~1 : int
+- thirdelement (["a", "bb", "cdef", "gg"]);
+val it = "cdef" : string
+- reverse3tuple (5.5, #"h", true);
+val it = (true,#"h",5.5) : bool * char * real
+- 
+
+\end{verbatim}
+
+\end{document}

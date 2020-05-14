@@ -1,0 +1,10 @@
+fun sum (n) =
+  let
+    fun loop (s,0) = s
+      | loop (s,i) = loop(s + i, i - 1)
+  in
+    loop(0,n)
+  end;
+
+sum(5);
+sum(100);

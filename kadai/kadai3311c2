@@ -1,0 +1,10 @@
+fun member(x, []) = false
+|   member(x,y::ys) = if x=y then true else member(x,ys)
+;
+
+fun insert(x,S) = if member(x,S) then S else x::S
+;
+
+insert(3,[]);
+insert(2,[1,5,9,0]);
+insert(4,[1,2,3,4,5]);

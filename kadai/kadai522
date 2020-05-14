@@ -1,0 +1,7 @@
+exception ValueIsMinus;
+fun kaijyo(0) = 1
+|   kaijyo(x) = if x < 0 then raise ValueIsMinus else x*kaijyo(x-1); 
+
+kaijyo(5);
+kaijyo(0);
+kaijyo(~5);

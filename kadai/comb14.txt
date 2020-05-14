@@ -1,0 +1,7 @@
+fun comb(n,m)=
+ if m=0 orelse n=m then 1
+ else comb(n-1,m)+comb(n-1,m-1);
+
+ comb(5,2);
+ comb(10,1);
+ comb(100,100);

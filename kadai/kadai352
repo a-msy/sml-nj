@@ -1,0 +1,13 @@
+(* リスト同士の結合を::のみで実装*)
+fun cat (nil, M) = M
+  | cat (x::xs, M) = x::cat(xs, M)
+;
+fun cycle (L, i) = 
+    let
+        fun cycle1 (L, y, 0) = cat(L, rev(y))
+        | cycle1 (x::xs, y, i) = cycle1(xs, x::y, i-1)
+    in
+        cycle1 (L, nil, i)
+    end
+;
+cycle([1,2,3,4,5],3);

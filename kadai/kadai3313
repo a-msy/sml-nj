@@ -1,0 +1,12 @@
+fun power_set(nil) = [nil]
+|   power_set(x::xs) = power_set(xs) @ ( List.map (fn ys => x::ys) ( power_set(xs) ) )
+;
+
+fun inserteach(a,nil) = nil
+|   inserteach(a,x::xs) = (a::x)::inserteach(a,xs);
+
+fun power_setk(nil) = [nil]
+|   power_setk(x::xs) = power_setk(xs)@inserteach(x,power_setk(xs));
+
+power_setk([1,2,3]);
+power_setk([1,2]);
