@@ -1,0 +1,15 @@
+  
+fun simpleMap(F, nil) = nil
+  | simpleMap(F, x::xs) = F(x)::simpleMap(F, xs);
+
+(* a. 実数のリス中の負の数を0で置き換え、非負の数はそのままにする *)
+simpleMap(fn x=> if x < 0.0 then 0.0 else x, [4.4, ~4.4, 9.9]);
+
+(* b. 整数のリストの全ての要素に1を加える *)
+simpleMap(fn x=> x + 1, [1, ~2, 3, 4]);
+
+(* c. 小文字だけ大文字に変換する *)
+simpleMap(fn c => if c >= #"a" andalso c <= #"z" then chr(ord(c)+ord(#"A")-ord(#"a")) else c, [#"I",#"m",#"A",#"d",#"a"]);
+
+(* d. 文字列のリストの各要素の5文字より長い部分を切り捨てる *)
+simpleMap(fn s => if size(s)>5 then substring(s, 0, 5) else s, ["Imada", "MASAYA", "SMLSASAKURA"]);

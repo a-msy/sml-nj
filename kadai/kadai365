@@ -1,0 +1,38 @@
+fun padd([],Q)=Q
+|   padd(P,[])=P
+|   padd((p:real)::ps,q::qs)=(p+q)::padd(ps,qs)
+;
+
+fun smult([],_)=[]
+|   smult(p::ps,(q:real))=(p*q)::smult(ps,q)
+;
+
+fun pmult(P,[])=[]
+|   pmult(P,q::qs)=padd(smult(P,q),0.0::pmult(P,qs))
+;
+
+(* 加算*)
+fun mpadd(PP, nil) = PP
+| mpadd(nil, QQ) = QQ
+| mpadd(P::PS, Q::QS) = padd(P,Q)::mpadd(PS, QS);
+
+(*スカラー倍*)
+fun mpsmult(nil, q) = nil
+| mpsmult(P::PS, q) = smult(P, q)::mpsmult(PS,q);
+
+(* 積*)
+(* 補助関数としてリストのリストとリストをかける関数mppmult(PP, Q)*)
+(*
+PP = P + PSx, Q
+PP * Q = P* Q + PS * Q x
+PP はリストのリスト。x とy がまざっている
+P, Q はリスト. ここでいうならy のみ.
+*)
+fun mppmult(nil, Q) = nil
+| mppmult(P::PS, Q) = mpadd([pmult(P,Q)], [0.0]::mppmult(PS,Q));
+(* 二つの変数を含む多項式の乗算*)
+(* 二つの多項式を　PP とQQ = Q+QSx とすると*)
+(* PP * QQ = PP * Q + PP * QS x *)
+(* つまり*)
+fun mpmult(PP, []) = []
+| mpmult(PP, Q::QS) = mpadd(mppmult(PP, Q), [0.0]::mpmult(PP, QS));

@@ -1,0 +1,15 @@
+fun applyList [] _ = []
+|   applyList (F::Fs) x = F x::applyList Fs x;
+
+fun makeFnList _ [] = []
+|   makeFnList F (x::xs) = F x::makeFnList F xs;
+
+fun sq (nil,_) = true
+| sq (_,nil) = false
+| sq (x::xs, y::ys) = if x=y then sq (xs, ys) else sq (x::xs, ys);
+
+fun subsequence x y = sq (explode x, explode y);
+
+val g = makeFnList subsequence;
+val text = g ["ear","part","trap","seat"];
+applyList text "separate";

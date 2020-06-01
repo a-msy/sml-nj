@@ -1,0 +1,5 @@
+fun eval (nil,_) = 0.0
+|   eval (p::nil,_) = p:real
+|   eval (p::ps,a:real) = p + a*eval(ps,a)
+;
+eval([~2.0,4.0,6.0],2.0); 

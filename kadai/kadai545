@@ -1,0 +1,5 @@
+(*c*)
+map (fn c => if c >= #"a" andalso c <= #"z" then chr(ord(c)+ord(#"A")-ord(#"a")) else c) [#"I",#"m",#"A",#"d",#"a"];
+
+(*d*)
+map (fn s=> if size(s) > 5 then substring(s,0,5) else s) ["abcde", "Nonmonoton", "fa", "rest"];

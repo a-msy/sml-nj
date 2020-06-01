@@ -1,0 +1,6 @@
+fun filter(P, nil) = nil
+|   filter(P, x::xs) =  if P(x) then x::filter(P,xs)
+                        else filter(P,xs)
+;
+
+filter( fn s => if s = "" then false else hd(explode(s)) = #"a",["abc", "def", "ba", "aa",""]);

@@ -1,0 +1,7 @@
+exception EmptyList;
+fun reduceB (_,[],_) = raise EmptyList
+|   reduceB (F,[a],g) = F(a,g)
+|   reduceB (F,x::xs,g) = F(x,reduceB(F,xs,g))
+;
+reduceB(op -,[1,2,3,4,5],6);
+reduceB(op +,[1,2,3,4,5],6);

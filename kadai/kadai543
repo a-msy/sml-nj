@@ -1,0 +1,15 @@
+fun simpson(a,b,n,F)=
+if n <= 0 orelse b-a <= 0.0 then 0.0
+else
+    let
+        val h = (b-a) / (2.0 * real(n))
+        val keisu = h / 3.0
+        fun simpsonsub (x) = 4.0 * F(x) + 2.0 * F(x+h)
+        fun simpsonx2 (_,0) = 0.0
+        |   simpsonx2 (x,m) = simpsonsub(x) + simpsonx2(x+h+h,m-1)
+    in
+        keisu * (F(a) + simpsonx2(a+h, n) - F(b))
+    end
+;
+
+simpson (0.0, 1.0, 1, fn x=>x*x*x);

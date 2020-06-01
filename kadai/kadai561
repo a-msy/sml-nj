@@ -1,0 +1,14 @@
+(*d*)
+foldl (fn(x,y)=>y^x) "" ["aaa","bbb","ccc"];
+
+(*e*)
+foldr op- 0 [1,2,3,4];
+
+(*f*)
+foldr ( fn(x,y)=> x andalso y ) true [true,false,true];
+
+(*g*)
+foldr (fn(x,y)=>x orelse y) false [true,false,true];
+
+(*h*)
+foldr (fn (x,y) => x <> y) false [true,false,true];

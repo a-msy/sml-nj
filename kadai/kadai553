@@ -1,0 +1,15 @@
+fun ss1([],_) = true
+|   ss1(_,[]) = false
+|   ss1(x::xs,y::ys) = if x=y then ss1(xs,ys) else false;
+
+fun ss2(_,[]) = false
+|   ss2(xs,y::ys) = ss2(xs,y::ys) orelse ss2(xs,ys);
+
+fun substring x y = ss2(explode x, explode y);
+
+fun makeFnList _ [] = []
+|   makeFnList F (x::xs) = F x::makeFnList F xs;
+
+fun f = makeFnList (substring);
+val flist = f ["he","she","her","his"];
+applyList flist "hershey";

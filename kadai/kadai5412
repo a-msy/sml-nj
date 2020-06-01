@@ -1,0 +1,8 @@
+exception EmptyList;
+fun reduceB (_,[],_) = raise EmptyList
+|   reduceB (F,[a],g) = F(a,g)
+|   reduceB (F,x::xs,g) = F(x,reduceB(F,xs,g))
+;
+
+reduceB(fn (_,g) => g+1,[1,2,3,4,5],0);(*a*)
+reduceB(fn (a,g) => a::g ,[1,2,3],[]);(*bはわかりませんでした*)

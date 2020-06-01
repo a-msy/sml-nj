@@ -1,0 +1,18 @@
+fun padd([],Q)=Q
+|   padd(P,[])=P
+|   padd((p:real)::ps,q::qs)=(p+q)::padd(ps,qs)
+;
+
+fun smult([],_)=[]
+|   smult(p::ps,(q:real))=(p*q)::smult(ps,q)
+;
+
+fun pmult(P,[])=[]
+|   pmult(P,q::qs)=padd(smult(P,q),0.0::pmult(P,qs))
+;
+
+fun Poly(nil) = [1.0]
+|   Poly(x::xs) = pmult([~x,1.0],Poly(xs))
+;
+
+Poly([2.0,1.0]);
