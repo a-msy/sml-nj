@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>submit12.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%E7%AC%AC%EF%BC%91%EF%BC%92%E5%9B%9E%E8%AA%B2%E9%A1%8C">第１２回課題</h1>
+<p>09430509
+今田将也</p>
+<h1 id="323">3.2.3</h1>
+<p>関数宣言　<code>fun f(a:int, b, c, d, e) = ...</code></p>
+<h2 id="a-if-abc-then-d-else-e">a) if a&lt;b+c then d else e</h2>
+<p>aがintで指定されていて，また，そのaを用いた比較にbとcが利用されていることから，a:int,b:int,c:intである．また，if文の後のthenとelseはifと同じ型でないといけないが，ifの型は指定されていないため，d,cともに'a型であるだろう．
+したがって， <code>val f = fn : int * int * int * 'a * 'a -&gt; 'a</code></p>
+<h2 id="b-if-ab-then-c-else-d">b) if a&lt;b then c else d</h2>
+<p>a)と同様に考えると，a,bはint型，c,dは'a型．そして，eは利用されておらず，特に型指定もないため新たな'b型である．
+したがって， <code>val f = fn : int * int * 'a * 'a * 'b -&gt; 'a</code></p>
+<h2 id="c-if-ab-then-bc-else-de">c) if a&lt;b then b+c else d+e</h2>
+<p>同様に，a,bはint型が決まる．そして，thenの後にそのbが使われていることから，cもint型であることが決まる．そして，thenとelseは同じ型であるというルールから，d,eも共にint型である．
+したがって， <code>val f = fn : int * int * int * int * int -&gt; int</code></p>
+<h2 id="d-if-ab-then-bc-else-d">d) if a&lt;b then b&lt;c else d</h2>
+<p>同様に，a,b,cはint型．dはthenのところで，bとcを比較した真偽値を持つため，bool型であるだろう．eは'a型．
+したがって， <code>val f = fn : int * int * int * bool * 'a -&gt; bool</code></p>
+<h2 id="e-if-bc-then-a-else-cd">e) if b&lt;c then a else c+d</h2>
+<p>aがint型であるから，c,dもint型だということがわかる．cがint型であるから，ifでの比較に利用しているbもintだと推論でき，eは'aだと推論できる．したがって， <code>val f = fn : int * int * int * int * 'a -&gt; int</code></p>
+<h2 id="f-if-bc-then-d-else-e">f) if b&lt;c then d else e</h2>
+<p>b,cは比較に用いられているが，特に指定がないため，int型だろう．aはintと指定されているため，自明である．d,eはthen,elseに使われているが，特に指定がないため共に，'a型である．したがって，<code>val f = fn : int * int * int * 'a * 'a -&gt; 'a</code></p>
+<h2 id="g-if-bc-then-de-else-de">g) if b&lt;c then d+e else d*e</h2>
+<p>aはintと指定されているため，自明である．b,cは比較に用いられているが，特に指定がないため，int型だろう．d,eについては計算が行われているため，bool型および'a型であることはない．よって標準のint型だと推論される．したがって，<code>val f = fn : int * int * int * int * int -&gt; int</code></p>
+<h1 id="%E8%B3%87%E6%96%99mloopdf-%E5%95%8F33%E3%81%AE2%E3%81%A83">資料MLOO.pdf 問3.3の2と3</h1>
+<h2 id="2">2</h2>
+<p>まず，<code>fun cube</code>について推定すると，計算をしているため<code>int</code>型で引数をとると考えられる．
+<code>fun twice f x</code>についてだが，引数fとxをそれぞれ用いた再帰的な関数であるが，計算はこの関数自体で見ると行っていないので，<code>'a</code>型で引数xを受け取り，fはそれに対応する関数を受け取り，最終的には再帰的に<code>'a</code>型を返すものと推定できる．
+次に<code>fun id</code>は受け取った引数xを単純に返しているだけなので，<code>'a</code>型と推定できる．</p>
+<p>では，<code>fn x=&gt; twice id x</code>はというと，<code>twice id x</code>のidは<code>'a</code>型で，引数を受け取るので，xも<code>'a</code>型である必要がある．そして，<code>fun twice</code>は<code>'a</code>で引数xと関数idを受け取るはずと推定できる．</p>
+<p>したがって最終的な結果は<code>'a-&gt;'a</code>と推定できる．</p>
+<h3 id="%E5%AE%9F%E9%9A%9B%E3%81%AE%E7%B5%90%E6%9E%9C">実際の結果</h3>
+<pre class="hljs"><code><div>- fun cube x = x * x * x;
+val cube = fn : int -&gt; int
+- fun twice f x = f (f x);
+val twice = fn : ('a -&gt; 'a) -&gt; 'a -&gt; 'a
+- fun id x = x;
+val id = fn : 'a -&gt; 'a
+-  fn x =&gt; twice id x;
+val it = fn : 'a -&gt; 'a
+</div></code></pre>
+<h2 id="3">3</h2>
+<p>関数 thriceについて，
+thrice : t1，
+f :t2，
+x :t3，
+f x :t4，
+f (f x) :t5，
+f f (f x)) :t6，
+と仮定する．</p>
+<p>このとき求めたいのは<code>t1 = t2 -&gt; t3 -&gt; t6</code>である．
+t3を引数にすると，t2でt4を得られるため，<code>t2 = t3 -&gt; t4</code>，また引数を変えて同様に，<code>t2 = t4 -&gt; t5</code>,<code>t2 = t5 -&gt; r6</code></p>
+<p>これより<code>t3 = t4 = t5 = t6</code></p>
+<p>したがってt1は</p>
+<pre class="hljs"><code><div>t1 = t2 -&gt; t3 -&gt; t3 = (t3 -&gt; t3) -&gt; t3 -&gt; t3 = ('a -&gt; 'a) -&gt; 'a -&gt; 'a
+</div></code></pre>
+<h1 id="%E8%B3%87%E6%96%99mloopdf-%E5%95%8F35-%E3%81%AE-1-fun-s-x-y-z--x-z-y-z">資料MLOO.pdf 問3.5 の 1 fun S x y z = (x z) (y z);</h1>
+<p>カリー化されたラムダ計算式であることがわかる．
+関数Sは１つ目の関数に３つ目の関数を適用し，その結果に，２つ目の関数に３つ目の関数を適用した結果を適用している<code>S = λxyz.(xz)(yz)</code>である．</p>
+<p><code>x -&gt; y(z)</code>,<code>y(z) -&gt; z</code>,<code>z -&gt; (x z)(y z)</code>であることがわかる.</p>
+<ul>
+<li>S :t1</li>
+<li>x :t2</li>
+<li>y :t3</li>
+<li>z :t4</li>
+<li>(x z) :t5</li>
+<li>(y z) :t6</li>
+<li>(x z)(y z)  :t7</li>
+</ul>
+<p>求めたいのは，関数Sだから，<code>t1 = t2 -&gt; t3 -&gt; t4 -&gt; t7</code>.
+関数xは引数にzで，結果がt5の関数と同様だと捉えられるので，<code>t2 = t4 -&gt; t5</code>といえる．
+関数yも同様に，引数がzで結果がt6の関数と同様なので<code>t3 = t4 -&gt; t6</code>である．</p>
+<p>整理すると，</p>
+<pre class="hljs"><code><div>t1 = (t4 -&gt; t5) -&gt; (t4 -&gt; t6) -&gt; t4 -&gt; t7
+</div></code></pre>
+<p>また，t5は引数がt6である．結果はt4つまりt7であるから，<code>t5 = t6 -&gt; t7</code></p>
+<p>したがって，</p>
+<pre class="hljs"><code><div>t1 = (t4 -&gt; t6 -&gt; t7) -&gt; (t4 -&gt; t6) -&gt; t4 -&gt; t7
+</div></code></pre>
+<p><code>t4 = 'a, t6 = 'b, t7 = 'c</code>とすると，</p>
+<pre class="hljs"><code><div>('a -&gt; 'b -&gt; 'c) -&gt; ('a -&gt; 'b) -&gt; 'a -&gt; 'c
+</div></code></pre>
+
+</body>
+</html>
