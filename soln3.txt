@@ -1,0 +1,382 @@
+CSPP 51091
+Winter, 2007
+
+Homework 3 Solutions
+Due 2/6/07
+
+Chapter 5
+
+Section 5.1.6 (Page 132)
+
+5.1.1*
+fun finishInt(i,file) =
+    if i = END then END
+    else (case input1(file)
+            of NONE => i
+             | SOME c =>
+               if digit c then finishInt(10*i+ord(c)-ord(#"0"),file)
+	       else i)
+
+5.1.2 b:
+val rec smult = 
+    fn (nil,q) => nil
+     | ((p:real)::ps,q) => (p*q)::smult(ps,q);
+
+5.1.2 c:
+val rec pmult = 
+    fn (P,nil) => nil
+     | (P,q::qs) => padd(smult(P,q), 0.0::pmult(P,qs));
+
+5.1.2 d:
+val rec sumPairs = 
+    fn nil => 0
+     | ((x,y)::zs) => x + y + sumPairs zs;
+
+5.1.2 f:
+val rec merge =
+    fn (nil,M) => M
+     | (L,nil) => L
+     | (L as x::xs, M as y::ys) =>
+       if x < y then x::merge(xs,M) else y::merge(L,ys);
+
+5.1.4 b
+E andalso F as a case expression:
+case E
+  of false => false
+   | true => F
+        
+
+Section 5.2.6 (Page 141-143)
+
+5.2.1* [use of pattern matching instead of hd/tl]
+exception Third
+fun third (_::_::x::_) = x
+  | third _ = raise Third  (* too few elements *)
+
+Here is an alternative that makes more distinctions 
+about failures (probably unnecessarily elaborate).
+
+exception Third0
+exception Third1
+exception Third2
+fun third (_::_::x::_) = x
+  | third nil = raise Third0
+  | third [_] = raise Third1
+  | third [_,_] = raise Third2;
+
+5.2.3* [placement of handler, see also fig4_10a.sml]
+See code files fig4_10.sml and fig4_10a.sml.
+-----------------------------------------------------------------
+New, improved version of program from Figure 4.10 using exception
+-----------------------------------------------------------------
+(* fig4_10.sml *)
+(* improved version of Figure 4.10 using Eof exception to signal empty input *)
+
+open TextIO
+
+val ord0 = ord(#"0")  (* character code of digit 0 *)
+
+(* digit : char -> int option
+ * digit(c) returns (SOME n) if c is a digit with integer value n,
+ * or NONE if c is not a digit *)
+fun digit c =
+    if c >= #"0" andalso c <= #"9"
+    then SOME(ord c - ord0)
+    else NONE
+
+exception Eof
+
+fun getInt (file: instream) = 
+    let fun startInt () =
+            (case input1 file
+               of NONE => raise Eof  (* input exhaused before digit found *)
+	        | SOME c => 
+		  (case digit c
+		     of SOME i => i
+		      | NONE => startInt()))
+        fun finishInt (i) =
+            (case input1(file)
+               of NONE => i (* ran out of input characters *)
+                | SOME c =>
+		  (case digit c
+		     of SOME j => finishInt(10*i+j)
+		      | NONE => i)) (* ran out of digits *)
+     in finishInt(startInt())
+    end
+
+(* simple version with handler inside recursion. All but innermost
+ * handler are redundant *)
+fun sumInts file =
+    let fun sum s =
+	    sum(getInt file + s)
+	    handle Eof => s
+     in sum 0
+    end
+
+(* alternate version avoiding nested Eof handlers *)
+exception Result of int
+
+fun sumInts file =
+    let fun sum s =
+	    let val i = getInt file
+	                handle Eof => raise Result s
+	     in sum(i+s)
+            end
+     in sum 0
+        handle Result n => n
+    end
+
+-------------------------------------------------
+
+5.2.5 a:
+myFavoriteException : string -> exn
+
+5.2.5 b:
+myFavoriteException("joe") successfully matches its argument
+and returns the associated rhs value, namely exception Match.
+Note that the exception Match is not raised, it is just returned
+as the normal result of the function call.
+
+myFavoriteException("zzz") fails to find a match for the argument
+"zzz", and so generates raises the Match exception. In this case
+the function call did not return normally, it resulted in an
+the exception match being raised becaust the argument was not
+matched, and the uncaught exception Match terminated the function
+call.
+
+
+Section 5.3.5 (Page 154)
+
+5.3.1: The function definitions are:
+
+    fun rev1(L) = if L = nil then nil else rev1(tl L)@[hd L]
+    fun rev2 nil = nil
+      | rev2(x::xs) = rev2 xs @ [x]
+
+5.3.1 a:
+rev1([(rev1: int list -> int list), rev1])
+Type error because type of rev1 is a function type, and therefore
+not an equality type.
+
+5.3.1 b:
+rev2([(rev1: int list -> int list), rev1])
+Result is [rev1,rev1] : (int list -> int list) list.
+rev2 [rev1 : int list -> int list, rev1];
+val it = [fn,fn] : (int list -> int list) list
+
+5.3.1 c:
+rev2([rev1,rev1])
+Type error because (generic instance of) type of rev1 is not an equality type.
+- rev1([rev1,rev1])
+stdIn:12.1-12.16 Error: operator and operand don't agree [equality type required]
+  operator domain: ''Z list
+  operand:         (''Y list -> ''Y list) list
+  in expression:
+    rev1 (rev1 :: rev1 :: nil)
+
+5.3.1 d* [value restriction]:
+rev2([rev2,rev2])
+Type checks and works, but "value restriction" at top level causes the
+polymorphic types to be instantiated to a new dummy type X1.
+- rev2[rev2,rev2];
+stdIn:1.1-1.16 Warning: type vars not generalized because of
+   value restriction are instantiated to dummy types (X1,X2,...)
+val it = [fn,fn] : (?.X1 list -> ?.X1 list) list
+
+5.3.2 b: 
+Give various instantiations of the type 'a list * 'b list.
+ (by "nonconstant expression" in (iii) is meant a type
+  expression that is not a type constant, e.g int * bool)
+  (i) ('a list) * ('a list)  -- equating 'a and 'b to get a more
+      specialized polymorphic type.
+  (ii) (int list) * (bool list) -- "instantiating" 'a with type
+      constant int and 'b with type constant bool to get a monotype.
+  (iii) ((int * bool) list) * ((int -> bool) list) -- instantiating
+      'a and 'b with two type expression to get a monotype.
+
+  We could also instantiate 'a and 'b with type expressions that contained
+  other type variables, as in
+
+       ((int * 'c) list) * (('c -> 'd) list)
+
+  where 'a |-> int * 'c and 'b |-> 'c -> 'd.
+
+5.3.3 b:
+Domain type of f should be 'a * 'a * int :
+fun f(x,y,z) = ([x,y],z + 1)
+
+5.3.3 c:
+Domain type of f should be 'a list * 'b * 'a :
+fun f(x,y,z) = z::x
+
+5.3.4 a:
+int * string list
+
+  This is an equality type because int and string are
+  primitive equality types and * and list are type operators that
+  yield equality types when their arguments are equality types.
+
+5.3.4 b:
+(int -> char) * string
+  This is not an equality type because (int -> char), being a function
+  type, is not an equality type, and in order for a product type to
+  be an equality type, all its arguments must be equality types.
+
+5.3.4 c:
+int -> string -> unit = int -> (string -> unit)
+  This is not an equality type because it is a function type.
+
+5.3.4 d:
+real * (string * string) list
+  This is not an equality type because real is not an equality type.
+
+5.3.5 b:
+M::L = L@[N].
+  M::L = [(1,2),(1,2),(3,4)] and L@[N] = [(1,2),(3,4),(3,4)], which
+  are not equal. So the expression returns false.
+ 
+5.3.5 d:
+N::L = (3,4)::M::N::nil
+  N::L = [(3,4),(1,2),(3,4)] and (3,4)::M::N::nil = [(3,4),(1,2),(3,4)],
+  so these are equal and the value is true.
+
+5.3.7 (all)
+fun f nil = nil
+  | f [x] = [x]
+  | f (x::y::_) = [x,y]
+f : 'a list -> 'a list
+fun g(x,y) = (f x, f y)
+g : 'a list * 'b list -> 'a list * 'b list
+fun h(x,y) = 
+    let val v = f nil in (x::v, y::v) end
+h : 'a * 'a -> ('a list * 'a list)
+    (* because of value restriction in typing of "val v = f nil", 
+     * v is not polymorphic, so x and y must have same type 'a *)
+
+5.3.7a: g([1,2,3],["a"])
+  legal, producing ([1,2],["a"]) : int list * string list
+
+5.3.7b: g([1,2,3], nil)
+  legal, producing ([1,2],nil) : int list * 'X1 list (value restriction)
+
+5.3.7c: g([f,f],[1])
+  legal, producing ([fn,fn],[1]) : (X1 list -> X1 list) list * int list
+
+5.3.7d: g([1],[1.0])
+  legal, producing ([1],[1.0]) : int list * real list
+
+5.3.7e: h(1,2)
+  legal, producing ([1],[2]) : int list * int list
+
+5.3.7f: h(1,"a")
+  illegal, arguments of h must have same type
+
+5.3.7g: h(nil,nil)
+  legal, producing ([nil],[nil]) : X1 list list * X1 list list
+
+5.3.7h: h([1],nil)
+  legal, producing ([[1]],[nil]) : int list list * int list list
+
+Section 5.4.6 (Page 166-168)
+5.4.5 d (consider using String.substring on strings of > 5 characters)
+fun simpleMap (F,nil) = nil
+  | simpleMap (F,x::xs) = F x :: simpleMap(F,xs)
+
+fun trunc5 s = if size s <= 5 then s else String.substring(s,0,5)
+
+(* or *)
+
+fun trunc5 s = String.substring(s,0,5) handle Subscript => x
+
+simpleMap (trunc5, L);
+
+5.4.6 d
+fun or(b1,b2) = b1 orelse b2;
+reduce(or,L)
+
+5.4.7 d
+filter ((fn s => size s < 4),L)
+
+5.4.8
+reduce(op -, L) takes the sum of the odd elements of L and subtracts
+  the sum of the even elements of L.
+
+5.4.11 (this is similar to foldr, but not curried, and the arguments
+are in a different order)
+fun reduceB(g,f,nil) = g
+  | reduceB(g,f,x::xs) = f(x,reduceB(g,f,xs))
+
+or, defining it in terms of foldr, 
+
+fun reduceB(g,f,l) = foldr f g l
+
+5.4.12 a
+reduceB(0,(fn (x,n) => n+1),l)
+
+Section 5.5.3 (Page173)
+
+5.5.1
+fun applyList nil x = nil
+  | applyList (f::fs) x = f x :: applyList fs x
+
+5.5.7 a: Example for n = 3:
+fun curry f = (fn x1 => (fn x2 => (fn x3 => f(x1,x2,x3))))
+
+More generally
+
+fun curry f = (fn x1 => ... (fn xn => f(x1,...xn))...)
+
+or 
+
+fun curry f x1 ... xn = f(x1, ..., xn)
+
+
+5.5.7 b:
+Example for n = 3:
+fun uncurry f = fn (x,y,z) = f x y z
+
+More generally
+
+fun uncurry f = fn (x1,...,xn) => f x1 ... xn
+
+or
+
+fun uncurry f (x1,...,xn) = f x1 ... xn
+
+
+Section 5.6.5 (Pages 181-183)
+
+5.6.1 b:
+val f = map (abs o real)
+
+5.6.1 d:
+val concat = foldr (op ^) ""
+
+5.6.1 f:
+val andlist = foldl (fn (x,y) = x andalso y) true
+
+5.6.4 a: (using ==> to abbreviate "evaluates to")
+val compA1 : (int -> int) -> int -> int = comp add1;
+  (* need explicit type ascription because of value restriction *)
+compA1 ==> (fn g => fn x => g(add1 x)) : (int -> int) -> int -> int)
+
+5.6.4 c:
+val f = compA1 add1;
+f ==> (fn x => add1(add1(x))) : int -> int
+
+5.6.4 d:
+f 2 ==>  4 : int
+
+5.6.6
+fun filter P = 
+    let fun f nil = nil
+          | f (x::xs) = if P x then x :: f xs else f xs
+     in f
+    end
+
+Section 5.7.4 (Page 191)
+5.7.2a: See file ex5_7_2a.pdf.
+
+5.7.2b: See file ex5_7_2a.sml.
+
+

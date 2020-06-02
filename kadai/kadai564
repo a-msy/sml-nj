@@ -1,0 +1,16 @@
+fun comp F G = (* カリー化形式 *)
+let
+  fun C x = G(F(x))
+in 
+  C
+end;
+
+fun add1 x = x + 1;
+
+val compA1: (int -> int) -> int -> int = comp add1;
+val compCompA1: ((int -> int) -> int) -> (int -> int) -> int = comp compA1;
+val f = compA1 add1;
+f(2);
+val g = compCompA1 compA1;
+val h = g add1;
+h(2);
