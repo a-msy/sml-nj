@@ -368,21 +368,21 @@ code {
 <h1 id="%E7%AC%AC%EF%BC%91%EF%BC%93%E5%9B%9E%E8%AA%B2%E9%A1%8C">第１３回課題</h1>
 <p>09430509
 今田将也</p>
-<h2 id="354-3-fun-a-x-y-z--z-y-x">3.5.4 3　fun A  x  y  z  =  z  y  x</h2>
+<h2 id="35-3-fun-a-x-y-z--z-y-x">3.5 3　fun A  x  y  z  =  z  y  x</h2>
 <p>関数Aをt1として，
 x:t2, y:t3, z:t4, z y x:t5とすると，</p>
 <p><code>t1 = t2 -&gt; t3 -&gt; t4 -&gt; t5</code>となり，<code>t4 = t3 -&gt; t2 -&gt; t5</code>となるため</p>
 <p>したがって，</p>
 <pre class="hljs"><code><div>t1 = t2 -&gt; t3 -&gt; (t3 -&gt; t2 -&gt; t5) -&gt; t5 = 'a -&gt; 'b -&gt; ('b -&gt; 'a -&gt; 'c) -&gt; 'c
 </div></code></pre>
-<h2 id="354-4-fun-b-f-g--f-g-g">3.5.4 4　fun B  f  g  =  f  g  g</h2>
+<h2 id="35-4-fun-b-f-g--f-g-g">3.5 4　fun B  f  g  =  f  g  g</h2>
 <p>関数Bをt1として，
 f:t2, g:t3, f g g:t4とすると，</p>
 <p><code>t1 = t2 -&gt; t3 -&gt; t4</code>となり，<code>t2 = t3 -&gt; t3 -&gt; t4</code>となるため</p>
 <p>したがって，</p>
 <pre class="hljs"><code><div>t1 = (t3 -&gt; t3 -&gt; t4) -&gt; t3 -&gt; t4 = ('a -&gt; 'a -&gt; 'b) -&gt; 'a -&gt; 'b
 </div></code></pre>
-<h2 id="357">3.5.7</h2>
+<h2 id="37">3.7</h2>
 <h3 id="2-fun-f-x-y-z--x-y-z-int">2　fun f  x  y  z  = x (y z) :int</h3>
 <p>f:t1, x:t2, y:t3, z:t4, (y z):t5, x (y z):t6と仮定すると．
 <code>t1 = t2 -&gt; t3 -&gt; t4 -&gt; t6</code>であり，また，<code>t3 = t4 -&gt; t5</code>であり，そして<code>t2 = t5 -&gt; t6</code>から，</p>

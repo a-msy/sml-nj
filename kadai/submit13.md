@@ -3,7 +3,7 @@
 09430509
 今田将也
 
-## 3.5.4 3　fun A  x  y  z  =  z  y  x
+## 3.5 3　fun A  x  y  z  =  z  y  x
 
 関数Aをt1として，
 x:t2, y:t3, z:t4, z y x:t5とすると，
@@ -16,7 +16,7 @@ x:t2, y:t3, z:t4, z y x:t5とすると，
 t1 = t2 -> t3 -> (t3 -> t2 -> t5) -> t5 = 'a -> 'b -> ('b -> 'a -> 'c) -> 'c
 ```
 
-## 3.5.4 4　fun B  f  g  =  f  g  g 
+## 3.5 4　fun B  f  g  =  f  g  g 
 
 関数Bをt1として，
 f:t2, g:t3, f g g:t4とすると，
@@ -29,7 +29,7 @@ f:t2, g:t3, f g g:t4とすると，
 t1 = (t3 -> t3 -> t4) -> t3 -> t4 = ('a -> 'a -> 'b) -> 'a -> 'b
 ```
 
-## 3.5.7
+## 3.7
 
 ### 2　fun f  x  y  z  = x (y z) :int
 
