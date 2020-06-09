@@ -1,0 +1,20 @@
+exception NoZero;
+
+fun calc (x::y::xs) = x + y::calc(y::xs)
+|   calc (x::nil) = [x]
+;
+
+fun pascaltri 0 = raise NoZero
+|   pascaltri 1 = [1]
+|   pascaltri n = 1 :: calc( pascaltri(n-1) )
+;
+
+pascaltri 1;
+pascaltri 2;
+pascaltri 3;
+pascaltri 4;
+pascaltri 5;
+pascaltri 6;
+pascaltri 7;
+pascaltri 8;
+pascaltri 9;
